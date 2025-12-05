@@ -6,8 +6,17 @@ rooms = [
     {'id': 3, 'name': 'Room 3'},
 ]
 
-# Create your views here.
 def home(request):
     return render(request, 'base/home.html', {
         'rooms': rooms,
     })    
+
+def room(request, pk):
+    r = None
+    for room in rooms:
+        if room['id'] == int(pk):
+            r = room
+
+    return render(request, 'base/room.html', {
+        'room': r
+    })
