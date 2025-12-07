@@ -1,21 +1,14 @@
 from django.shortcuts import render
-
-rooms = [
-    {'id': 1, 'name': 'Room 1'},
-    {'id': 2, 'name': 'Room 2'},
-    {'id': 3, 'name': 'Room 3'},
-]
+from .models import Room
 
 def home(request):
+    rooms = Room.objects.all()
     return render(request, 'base/home.html', {
         'rooms': rooms,
     })    
 
 def room(request, pk):
-    r = None
-    for room in rooms:
-        if room['id'] == int(pk):
-            r = room
+    r = Room.objects.get(id=pk)
 
     return render(request, 'base/room.html', {
         'room': r
